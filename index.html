@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EduMatch — Find the course, wherever it lives</title>
+<meta name="description" content="EduMatch matches what you want to learn with courses across Coursera, YouTube, LinkedIn Learning, Udemy, and edX." />
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="login-page">
+
+  <section class="login-hero">
+    <div class="brand"><span class="dot"></span> EduMatch</div>
+
+    <div class="hero-copy">
+      <h1>One search.<br>Every course platform.</h1>
+      <p>Tell EduMatch what you want to learn — it matches your search against courses on Coursera, YouTube, LinkedIn Learning, Udemy, and edX, free and paid, side by side.</p>
+
+      <div class="platform-row">
+        <span class="platform-chip">Coursera</span>
+        <span class="platform-chip">YouTube</span>
+        <span class="platform-chip">LinkedIn Learning</span>
+        <span class="platform-chip">Udemy</span>
+        <span class="platform-chip">edX</span>
+        <span class="platform-chip">freeCodeCamp</span>
+      </div>
+    </div>
+
+    <div class="hero-beam" aria-hidden="true">
+      <svg viewBox="0 0 420 220" fill="none">
+        <circle cx="60" cy="110" r="7" fill="#2dd4bf"/>
+        <g stroke="#223252" stroke-width="1.4">
+          <line x1="66" y1="110" x2="220" y2="30"/>
+          <line x1="66" y1="110" x2="220" y2="70"/>
+          <line x1="66" y1="110" x2="220" y2="110"/>
+          <line x1="66" y1="110" x2="220" y2="150"/>
+          <line x1="66" y1="110" x2="220" y2="190"/>
+        </g>
+        <g fill="#7ee8dc">
+          <circle cx="220" cy="30" r="4"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="0s" repeatCount="indefinite"/></circle>
+          <circle cx="220" cy="70" r="4"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="0.4s" repeatCount="indefinite"/></circle>
+          <circle cx="220" cy="110" r="4"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="0.8s" repeatCount="indefinite"/></circle>
+          <circle cx="220" cy="150" r="4"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="1.2s" repeatCount="indefinite"/></circle>
+          <circle cx="220" cy="190" r="4"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="1.6s" repeatCount="indefinite"/></circle>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="login-form-wrap">
+    <div class="login-card">
+      <div class="brand"><span class="dot"></span> EduMatch</div>
+
+      <h2 id="form-title">Welcome back</h2>
+      <p class="sub" id="form-sub">Log in to search across every course platform at once.</p>
+
+      <form id="auth-form" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <p class="error-msg" id="error-msg"></p>
+        <button type="submit" class="btn btn-primary" id="submit-btn">Log in</button>
+      </form>
+
+      <div class="form-toggle">
+        <span id="toggle-text">New to EduMatch?</span>
+        <button type="button" id="toggle-btn">Create an account</button>
+      </div>
+
+      <div class="demo-note">
+        <strong>Demo mode:</strong> this project runs entirely in your browser with no real backend. Any email + a password of 4+ characters will log you in — nothing is sent anywhere.
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  const form = document.getElementById('auth-form');
+  const emailInput = document.getElementById('email');
+  const passInput = document.getElementById('password');
+  const errorMsg = document.getElementById('error-msg');
+  const toggleBtn = document.getElementById('toggle-btn');
+  const toggleText = document.getElementById('toggle-text');
+  const formTitle = document.getElementById('form-title');
+  const formSub = document.getElementById('form-sub');
+  const submitBtn = document.getElementById('submit-btn');
+
+  let mode = 'login'; // or 'signup'
+
+  toggleBtn.addEventListener('click', () => {
+    mode = mode === 'login' ? 'signup' : 'login';
+    if(mode === 'signup'){
+      formTitle.textContent = 'Create your account';
+      formSub.textContent = 'Sign up to start matching courses across every platform.';
+      submitBtn.textContent = 'Sign up';
+      toggleText.textContent = 'Already have an account?';
+      toggleBtn.textContent = 'Log in';
+    } else {
+      formTitle.textContent = 'Welcome back';
+      formSub.textContent = 'Log in to search across every course platform at once.';
+      submitBtn.textContent = 'Log in';
+      toggleText.textContent = 'New to EduMatch?';
+      toggleBtn.textContent = 'Create an account';
+    }
+    errorMsg.textContent = '';
+  });
+
+  // If already "logged in", skip straight to dashboard
+  if(localStorage.getItem('edumatch_user')){
+    window.location.href = 'dashboard.html';
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    const pass = passInput.value;
+
+    if(!/^\S+@\S+\.\S+$/.test(email)){
+      errorMsg.textContent = 'Enter a valid email address.';
+      return;
+    }
+    if(pass.length < 4){
+      errorMsg.textContent = 'Password must be at least 4 characters.';
+      return;
+    }
+
+    localStorage.setItem('edumatch_user', JSON.stringify({ email }));
+    window.location.href = 'dashboard.html';
+  });
+})();
+</script>
+
+</body>
+</html>

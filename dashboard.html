@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EduMatch — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand"><span class="dot"></span> EduMatch</div>
+  <div class="header-user">
+    <span class="email mono" id="user-email"></span>
+    <button class="logout-btn" id="logout-btn">Log out</button>
+  </div>
+</header>
+
+<main class="dashboard-main">
+
+  <div class="search-block">
+    <h1>What do you want to learn?</h1>
+    <p>Search once — EduMatch checks Coursera, YouTube, LinkedIn Learning, Udemy, edX, and freeCodeCamp for you.</p>
+
+    <form class="search-bar" id="search-form">
+      <input type="text" id="search-input" placeholder="Try “python”, “ux design”, “sql”…" autocomplete="off" />
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="match-beam-strip" id="beam-strip">
+      <span class="beam-chip" data-platform="Coursera">Coursera</span>
+      <span class="beam-chip" data-platform="YouTube">YouTube</span>
+      <span class="beam-chip" data-platform="LinkedIn Learning">LinkedIn Learning</span>
+      <span class="beam-chip" data-platform="Udemy">Udemy</span>
+      <span class="beam-chip" data-platform="edX">edX</span>
+      <span class="beam-chip" data-platform="freeCodeCamp">freeCodeCamp</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="filters">
+      <h3>Price</h3>
+      <div class="filter-group" id="price-filter">
+        <label class="filter-option"><input type="radio" name="price" value="all" checked /> All</label>
+        <label class="filter-option"><input type="radio" name="price" value="free" /> Free</label>
+        <label class="filter-option"><input type="radio" name="price" value="paid" /> Paid</label>
+      </div>
+
+      <h3>Platform</h3>
+      <div class="filter-group" id="platform-filter">
+        <!-- populated by JS -->
+      </div>
+
+      <h3>Level</h3>
+      <div class="filter-group" id="level-filter">
+        <label class="filter-option"><input type="radio" name="level" value="all" checked /> All levels</label>
+        <label class="filter-option"><input type="radio" name="level" value="Beginner" /> Beginner</label>
+        <label class="filter-option"><input type="radio" name="level" value="Intermediate" /> Intermediate</label>
+        <label class="filter-option"><input type="radio" name="level" value="Advanced" /> Advanced</label>
+      </div>
+
+      <h3>Sort by</h3>
+      <div class="filter-group">
+        <select class="sort-select" id="sort-select">
+          <option value="relevance">Relevance</option>
+          <option value="rating">Highest rated</option>
+          <option value="price-low">Price: low to high</option>
+          <option value="duration">Shortest duration</option>
+        </select>
+      </div>
+    </aside>
+
+    <section>
+      <div class="results-meta">
+        <span id="results-count"></span>
+      </div>
+      <div class="results-grid" id="results-grid"></div>
+    </section>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  EduMatch — demo project running on a local mock catalog, not live platform data.
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>
